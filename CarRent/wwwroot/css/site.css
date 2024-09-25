@@ -1,0 +1,225 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #f7aa1e;
+}
+
+.carcontainer {
+    border: 2px solid black;
+    margin-bottom: 10px;
+    cursor: default;
+    border-radius: 5px;
+    background-color: hsl(210, 13%, 67%);
+}
+
+.title {
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 2%
+}
+
+.welcome {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 2%
+}
+.details {
+    margin-left: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.picture {
+    margin: 15px 80px 5px 0px;
+    height: 250px;
+    border-radius: 8px;
+}
+
+.reserve-btn {
+   /* background-color:orange;*/
+   background-color: green;
+    color: whitesmoke;
+    border: hidden;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align:center; /*horizontally*/
+    align-items:center;
+    display: block;
+    height: 30px;
+    width: 70px;
+    text-decoration: none;
+}
+
+.reserve-btn:hover {
+    /*background-color: #d2982f;*/
+    border: hidden;
+    color: black;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align: center; /*horizontally*/
+    align-items: center;
+    font-weight: 500;
+}
+
+.delete-btn {
+    background-color: rgb(237, 11, 11);
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align: center; /*horizontally*/
+    align-items: center;
+    display: block;
+    height: 30px;
+    width: 70px;
+    text-decoration: none;
+}
+
+.delete-btn:hover {
+    background-color: rgb(250, 62, 62);
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align: center; /*horizontally*/
+    align-items: center;
+    height: 30px;
+}
+
+.mybtn {
+    margin: 8px 0px 15px 0px;
+    width: 200px
+}
+
+.defcursor {
+    cursor: default;
+}
+
+/*css for the add page*/
+
+form {
+    max-width: 700px;
+    margin: auto; 
+    background-color: #f9f9f9; 
+    border-radius: 8px; 
+}
+
+form label, form input, form select {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+form input[type="file"],
+form select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="submit"] {
+    background-color: orange;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+form input[type="submit"]:hover {
+    background-color: darkorange;
+}
+
+.add-cnt {
+    background-color: white;
+    width: 750px;
+    padding: 8px 0px 8px 0px;
+    border-radius: 8px;
+}
+
+.reserved {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.search-container {
+    margin: 0px 0px 2vh 2vh;
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+#brandInput {
+    margin-left: 2px;
+    border-radius: 5px;
+}
+
+.search-btn {
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align: center; /*horizontally*/
+    align-items: center;
+    display: block;
+    height: 30px;
+    width: 70px;
+    text-decoration: none;
+    background-color: orangered;
+}
+
+.search-btn:hover {
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align: center; /*horizontally*/
+    align-items: center;
+    display: block;
+    height: 30px;
+    width: 70px;
+    text-decoration: none;
+    background-color: orange;
+}
+
+.remove-btn {
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align: center; /*horizontally*/
+    align-items: center;
+    display: block;
+    height: 30px;
+    width: 140px;
+    text-decoration: none;
+    background-color: rgb(234, 30, 30, 0.75);
+}
+
+.remove-btn:hover {
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0px 0px 4px 4px;
+    text-align: center; /*horizontally*/
+    align-items: center;
+    display: block;
+    height: 30px;
+    width: 140px;
+    text-decoration: none;
+    background-color: red;
+}

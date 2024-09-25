@@ -1,0 +1,127 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Car>
+@inject SignInManager<SiteUser> SignInManager
+@inject UserManager<SiteUser> UserManager
+
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="title">Welcome to our CarRental site!</div>
+    <div class="welcome">Here you can see all cars. If you want to reserve a car please login.</div>
+}
+else
+{
+    var user = await UserManager.GetUserAsync(User);
+    <div class="welcome">Good to see you again @user.FirstName @user.LastName!</div>
+}
+
+
+<div class="search-container">
+    Search by brand: 
+    <input class="brand" type="text" id="brandInput" />
+    <a class="search-btn" href="javascript:void(0);" id="filterLink">Search!</a>
+    <a class="remove-btn" href="@Url.Action("Index", "Home")">Remove filter</a>
+</div>
+
+<script>
+    // JavaScript code to handle filtering based on user input
+    document.getElementById('filterLink').addEventListener('click', function() {
+        // Get the brand input value
+        var brandValue = document.getElementById('brandInput').value;
+
+        // Generate the URL for the "Filter" action with the "brand" query parameter
+        var filterUrl = '@Url.Action("Filter", "Home")' + '?brand=' + encodeURIComponent(brandValue);
+
+        // Redirect to the filtered URL
+        window.location.href = filterUrl;
+
+        document.getElementById('removeFilterLink').style.display = 'inline';
+    });
+</script>
+
+@foreach (var car in Model.GroupBy(t => t.PlateNumber))
+{
+    @foreach (var item in car)
+    {
+        <div class="carcontainer">
+            <div class="details">
+                <div>
+                    <div style="font-weight: 800; font-size: 22px">@item.Brand @item.Year</div>
+                    <div>Fuel type: @item.Fuel</div>
+                    <div>License Plate Number: @item.PlateNumber</div>
+                    <div>Location: @item.City?.CityName</div>
+                    <div>County: @item.City?.County</div>
+                    <div>Zip Code: @item.City?.ZipCode</div>
+                    <div>Price: @item.Price $/day</div>
+                    <br>
+                    @if (item.User != null && SignInManager.IsSignedIn(User))
+                    {
+                        <div class="reserved">
+                            <div>Reserved for: @item.User.FirstName @item.User.LastName</div>
+                            <div>From: @item.User.StartDate.ToString("yyyy-MM-dd")</div>
+                            <div>To: @item.User.EndDate.ToString("yyyy-MM-dd")</div>
+                            <div>Days: @((item.User.EndDate - item.User.StartDate).Days + 1)</div>
+                            <div>Payable: @(((item.User.EndDate - item.User.StartDate).Days + 1) * @item.Price)$</div>
+
+                                
+                        </div>
+                        <br>
+                    }
+                    @if (item.User != null && !SignInManager.IsSignedIn(User))
+                    {
+                        <div style="color:red; font-weight:700">Reserved</div>
+                        <br>
+                    }
+                    @if (item.User == default)
+                    {
+                        <div>
+                            Reserved for:
+                            <span style="color:green; font-weight:700">None</span>
+                        </div>
+                        <br>
+                    }
+                   @* else
+                    {
+                        <div>Reserved for:
+                            <span style="color:green; font-weight:700">None</span>
+                        </div>
+                        <br>
+                    }*@
+                </div>
+                <div>
+                    @if (item.ImageFileName != null && item.PlateNumber != null)
+                    {
+                        <img class="picture" src="@Url.Action("GetImage", "Home", new {plateNum = item.PlateNumber})" />
+                    }
+                </div>
+            </div>
+            
+            @*user not in admin role but logged in*@            
+            @if (SignInManager.IsSignedIn(User) && !(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin")))
+            {
+                @*get current user and compare this user.id to car.userid*@
+                var user = await UserManager.GetUserAsync(User);
+
+                @if (item.UserId == null && user.PlateNum == null)
+                {
+                    <a class="reserve-btn" href="@Url.Action("Reserve", "Home", new { plateNum = item.PlateNumber })">Reserve</a>
+                }
+                @if (item.UserId == user.Id)
+                {
+                    <a class="delete-btn" href="@Url.Action("Cancel", "Home", new { plateNum = item.PlateNumber })">Cancel</a>
+                }
+                
+            }
+            @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin") && item.UserId == null)
+            {
+                <a class="delete-btn" href="@Url.Action("Remove", "Admin", new { plateNum = item.PlateNumber })">Delete</a>
+            }
+            @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin") && item.UserId != null)
+            {
+                <div style="font-size: 20px; font-weight: 600; color: red; margin-bottom: 2%; font-style:italic">
+                    You can't delete this item, because there is an active reservation for it!
+                </div>
+            }
+        </div>
+    }
+}

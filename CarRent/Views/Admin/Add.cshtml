@@ -1,0 +1,38 @@
+﻿@*Only admin can add new cars 
+*@@using CarRent.Models
+@model Car
+<h1>Add a new car</h1>
+<div class="add-cnt">
+    <form action="add" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column">
+        @Html.LabelFor(t => t.PlateNumber)
+        @Html.EditorFor(t => t.PlateNumber)
+        @Html.ValidationMessageFor(t => t.PlateNumber)
+
+        @Html.LabelFor(t => t.Brand)
+        @Html.EditorFor(t => t.Brand)
+        @Html.ValidationMessageFor(t => t.Brand)
+
+        @Html.LabelFor(t => t.Fuel)
+        @Html.EditorFor(t => t.Fuel)
+        @Html.ValidationMessageFor(t => t.Fuel)
+
+        @Html.LabelFor(t => t.Year)
+        @Html.EditorFor(t => t.Year)
+        @Html.ValidationMessageFor(t => t.Year)
+
+        @Html.LabelFor(t => t.CityId)
+        @Html.EditorFor(t => t.CityId)
+        @Html.ValidationMessageFor(t => t.CityId)
+
+        @Html.LabelFor(t => t.Price)
+        @Html.EditorFor(t => t.Price)
+        @Html.ValidationMessageFor(t => t.Price)
+
+
+        <label>Picture</label>
+        <input type="file" name="picturedata" />
+
+        <input type="submit" value="Create" />
+
+    </form>
+</div>

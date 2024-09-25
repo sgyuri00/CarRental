@@ -1,0 +1,21 @@
+﻿@using CarRent.Models
+@model SiteUser
+
+<h1>Reserve</h1>
+<div class="add-cnt">
+    <form action="reserve" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column">
+
+ @Html.HiddenFor(t => t.PlateNum)
+
+        @Html.LabelFor(t => t.StartDate)
+        <input type="date" asp-for="StartDate" />@*this will show only the year-month-day*@
+        @Html.ValidationMessageFor(t => t.StartDate)
+
+        @Html.LabelFor(t => t.EndDate)
+        <input type="date" asp-for="EndDate" />
+        @Html.ValidationMessageFor(t => t.EndDate)
+
+        <input type="submit" value="Reserve" />
+
+    </form>
+</div>
